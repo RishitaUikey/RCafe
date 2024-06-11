@@ -1,0 +1,14 @@
+{% extends "customer/base.html" %}
+{% load static %}
+
+{% block page %}
+<div class="row align-items-center text-center" style="height: 100vh; ">
+    <div class="col">
+      <div style="position: relative;">
+        <img src="{% static 'images/home.jpg' %}" alt="" height="600px" width="1200px" style="display: block;">
+        <h2 style="position: absolute; top: 30%; left: 50%; font-size: 50px; transform: translate(-50%, -50%); color: rgb(255, 255, 255);font-family: 'Times New Roman', Times, serif; font-weight: bold; ">
+            Welcome to my home page</h2>
+      </div>
+    </div>
+  </div>
+{% endblock page %}
