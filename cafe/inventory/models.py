@@ -1,17 +1,29 @@
 from django.db import models
 
-# Create your models here.
-class inventory(models.Model):
-    inventory_category = models.ForeignKey('Icategory',on_delete=models.CASCADE,null=True,blank=True)
+class Icategory(models.Model):
+    category_name = models.CharField(max_length=50, null=True, blank=True)
+
+class ainventory(models.Model):
+    LITRES = 'L'
+    MILLILITRES = 'mL'
+    GRAMS = 'g'
+    KILOGRAMS = 'kg'
+    PACKETS = 'packets'
+
+    UNIT_CHOICES = [
+        (LITRES, 'Litres (L)'),
+        (MILLILITRES, 'Millilitres (mL)'),
+        (GRAMS, 'Grams (g)'),
+        (KILOGRAMS, 'Kilograms (kg)'),
+        (PACKETS, 'Packets'),
+    ]
+
+    inventory_category = models.ForeignKey(Icategory, on_delete=models.CASCADE, null=True, blank=True)
     shelf_number = models.IntegerField()
     purchase_id = models.IntegerField()
     item = models.CharField(max_length=50)
     quantity = models.IntegerField()
-    unit = models.IntegerField()
-    expiry_date = models.DateTimeField()
-    entry_date = models.DateTimeField(auto_now_add=True)
+    unit = models.CharField(max_length=20, choices=UNIT_CHOICES)
+    expiry_date = models.DateField(auto_now_add=False)
+    entry_date = models.DateField(auto_now_add=True)
     price = models.IntegerField()
-    
-class Icategory(models.Model):
-    category_name = models.CharField(max_length=50,null=True,blank=True)
-    

@@ -1,0 +1,42 @@
+{% extends "customer/base.html" %}
+{% block page %}
+<div class="container text-center mt-5">
+    <div class="row ">
+        <div class="col">
+            <h1>Edit Menu</h1>
+            <form method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" class="form-control visually-hidden" id="name" name='id' aria-describedby="emailHelp" value="{{menu.id}}"> 
+                <div class="mb-3">
+                    <label for="food_category" class="form-label">Category</label>
+                    <select id="food_category" name="food_category" class="form-control">
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if category.id == menu_item.food_category.id %}selected{% endif %}>
+                                {{ category.name_category }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name='picture' aria-describedby="emailHelp">             
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name='name' aria-describedby="emailHelp" value="{{menu.name}}">       
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name='price' aria-describedby="emailHelp" value="{{menu.price}}">             
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Quantity</label>
+                    <input type="text" class="form-control" id="quantity" name='quantity' aria-describedby="emailHelp" value="{{menu.quantity}}">             
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock page %}

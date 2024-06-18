@@ -16,7 +16,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request,('Login Successful !!!'))
-            return redirect('cust_home')
+            return redirect('home')
         else:
             messages.success(request,('Login UN-Successful !!!'))
             return redirect('login')

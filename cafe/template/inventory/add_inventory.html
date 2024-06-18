@@ -1,0 +1,98 @@
+{% extends "customer/base.html" %}
+{% load static %}
+{% block page %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Shelf Number</th>
+                        <th scope="col">Purchase ID</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Entry Date</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in inventory %}
+                    <tr>
+                        <th scope="row">{{ item.id }}</th>
+                        <td>{{ item.item }}</td>
+                        <td>{{ item.inventory_category.category_name }}</td>
+                        <td>{{ item.shelf_number }}</td>
+                        <td>{{ item.purchase_id }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.unit }}</td>
+                        <td>{{ item.expiry_date }}</td>
+                        <td>{{ item.entry_date }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <a href='/inventory/iupdate/{{item.id}}' class="btn btn-success">Edit</a>
+                        </td>
+                        <td>
+                            <a href="/inventory/idelete/{{item.id}}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="inventory_category" class="form-label">Category</label>
+                    <select name="inventory_category" id="inventory_category" class="form-control">
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="shelf_number" class="form-label">Shelf Number</label>
+                    <input type="number" class="form-control" id="shelf_number" name="shelf_number">
+                </div>
+                <div class="mb-3">
+                    <label for="purchase_id" class="form-label">Purchase ID</label>
+                    <input type="number" class="form-control" id="purchase_id" name="purchase_id">
+                </div>
+                <div class="mb-3">
+                    <label for="item" class="form-label">Item</label>
+                    <input type="text" class="form-control" id="item" name="item">
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity">
+                </div>
+                <div class="mb-3">
+                    <label for="unit" class="form-label">Unit</label>
+                    <select name="unit" id="unit" class="form-control">
+                        {% for value, name in inventory.UNIT_CHOICES %}
+                        <option value="{{ value }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="expiry_date" class="form-label">Expiry Date</label>
+                    <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" name="price">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Inventory</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock page %}

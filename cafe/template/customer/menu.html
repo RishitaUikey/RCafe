@@ -7,7 +7,7 @@
     <div style="position: relative;">
       <img src="{% static 'images/coffee.jpg' %}" alt="" height="600px" width="1200px" style="display: block;">
       <h2 style="position: absolute; top: 30%; left: 50%; font-size: 50px; transform: translate(-50%, -50%); color: rgb(255, 255, 255);font-family: 'Times New Roman', Times, serif; font-weight: bold; ">
-      Welcome to our menu page</h2>
+      Enjoy your meal</h2>
     </div>
   </div>
 </div>
@@ -22,7 +22,14 @@
           <div class="card-body">
             <h5 class="card-name">{{i.name}}</h5>
             <h5 class="card-price">Rs.{{i.price}}</h5>
-            
+            <div class="col-md-4 col-lg-4 col-xl-4 text-end">
+              <a href="/pos/buy_now/{{product.id}}" class="btn btn-danger me-2">
+                Buy Now
+              </a>
+              <a href="/pos/add/{{product.id}}" class="btn btn-outline-danger">
+                Add to Cart
+              </a>
+            </div>
       </div>
     </div>
     </div>

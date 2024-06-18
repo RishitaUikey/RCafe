@@ -11,8 +11,8 @@
       #back {
           background-image: url("static/images/home.jpg");
           background-size: cover;
-          height: 100vh; /* Ensure the element has height */
-          width: 100vw;  /* Ensure the element has width */
+          height: 100vh; 
+          width: 100vw;  
       }
   </style>
   </head>
@@ -38,10 +38,10 @@
               <a class="nav-link" href="/menu" style="font-family: 'Segoe Script'; color: rgb(0, 0, 0);">Menu</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/purchase" style="font-family: 'Segoe Script'; color: rgb(0, 0, 0);">Purchase</a>
+              <a class="nav-link" href="/purchase/addp" style="font-family: 'Segoe Script'; color: rgb(0, 0, 0);">Purchase</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/inventory" style="font-family: 'Segoe Script'; color:rgb(0, 0, 0);">Inventory</a>
+              <a class="nav-link" href="/inventory/add" style="font-family: 'Segoe Script'; color:rgb(0, 0, 0);">Inventory</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">

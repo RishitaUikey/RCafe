@@ -1,0 +1,40 @@
+{% extends "customer/base.html" %}
+{% load static %}
+{% block page %}
+<div class="container text-center mt-5">
+    <div class="row">
+        <div class="col">
+            <h1>{% if purchase %}Edit{% else %}Add{% endif %} Purchase</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if error %}<p class="text-danger">{{ error }}</p>{% endif %}
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" name="category" value="{% if purchase %}{{ purchase.category }}{% endif %}">
+                </div>
+                <div class="mb-3">
+                    <label for="item" class="form-label">Item</label>
+                    <input type="text" class="form-control" id="item" name="item" value="{% if purchase %}{{ purchase.item }}{% endif %}">
+                </div>
+                <div class="mb-3">
+                    <label for="unit" class="form-label">Unit</label>
+                    <input type="text" class="form-control" id="unit" name="unit" value="{% if purchase %}{{ purchase.unit }}{% endif %}">
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" value="{% if purchase %}{{ purchase.quantity }}{% endif %}">
+                </div>
+                <div class="mb-3">
+                    <label for="expiry_date" class="form-label">Expiry Date</label>
+                    <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date" value="{% if purchase %}{{ purchase.expiry_date|date:'Y-m-d\\TH:i' }}{% endif %}">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" name="price" value="{% if purchase %}{{ purchase.price }}{% endif %}">
+                </div>
+                <button type="submit" class="btn btn-primary">{% if purchase %}Update{% else %}Add{% endif %} Purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

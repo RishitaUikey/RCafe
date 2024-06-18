@@ -1,0 +1,80 @@
+{% extends "customer/base.html" %}
+{% load static %}
+{% block page %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Entry Date</th>
+                        <th scope="col">Expiry Date</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in purchases %}
+                    <tr>
+                        <th scope="row">{{ purchase.id }}</th>
+                        <td>{{ purchase.category }}</td>
+                        <td>{{ purchase.item }}</td>
+                        <td>{{ purchase.unit }}</td>
+                        <td>{{ purchase.quantity }}</td>
+                        <td>{{ purchase.entry_date }}</td>
+                        <td>{{ purchase.expiry_date }}</td>
+                        <td>{{ purchase.price }}</td>
+                        <td>{{ purchase.total }}</td>
+                        <td>
+                            <a href='/apurchase/pupdate/{{purchase.id}}' class="btn btn-success">Edit</a>
+                        </td>
+                        <td>
+                            <a href='/apurchase/pdelete/{{purchase.id}}' class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <input type="text" class="form-control" id="category" name="category">
+                </div>
+                <div class="mb-3">
+                    <label for="item" class="form-label">Item</label>
+                    <input type="text" class="form-control" id="item" name="item">
+                </div>
+                <div class="mb-3">
+                    <label for="unit" class="form-label">Unit</label>
+                    <input type="text" class="form-control" id="unit" name="unit">
+                </div>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity">
+                </div>
+                <div class="mb-3">
+                    <label for="expiry_date" class="form-label">Expiry Date</label>
+                    <input type="datetime-local" class="form-control" id="expiry_date" name="expiry_date">
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="price" name="price">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Purchase</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
