@@ -33,8 +33,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="unit" class="form-label">Unit</label>
-                    <select name="unit" id="unit" class="form-control">
-                        {% for value, name in ainventory.UNIT_CHOICES %}
+                    <select name="unit" id="unit" class="form-select" aria-label="Default select example">
+                        {% for value, name in unit_choices %}
                         <option value="{{ value }}" {% if value == inventory_item.unit %}selected{% endif %}>{{ name }}</option>
                         {% endfor %}
                     </select>

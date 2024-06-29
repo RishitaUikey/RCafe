@@ -1,0 +1,35 @@
+{% extends "customer/base.html" %}
+
+{% block page %}
+<div class="container text-center">
+    <div class="row">
+
+
+      <div class="col">
+        <form method='post'>
+          {% csrf_token %}
+
+          <input type="text" class="form-control visually-hidden " id="name" name="id" value="{{ser.id}}" >
+            <div class="mb-3">
+              <label for="name" class="form-label">status</label>
+              <input type="text" class="form-control" id="status" name='status' aria-describedby="emailHelp" value="{{ser.status}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect2">status</label>
+                <input type="text" class="form-control" id="status" name='status' aria-describedby="emailHelp" value="{{ser.status}}">
+                <select multiple class="form-control"  id="status" name='status' aria-describedby="emailHelp" value="{{ser.status}}">
+                  <option>pending</option>
+                  <option>accepted</option>
+                  <option>shipped</option>
+                  <option>delivered</option>
+                  <option>canceled</option>
+                </select>
+              </div>
+            
+            <button type="submit" class="btn btn-primary form-control">Submit</button>
+        </form>
+      </div>
+    </div>
+</div>
+    
+{% endblock page %}

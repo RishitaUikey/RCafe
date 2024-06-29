@@ -1,0 +1,37 @@
+{% extends "customer/base.html" %}
+{% block title %}Profile Page{% endblock title %}
+{% block page %}
+<div class="container my-5">
+    <div class="row my-3 p-3">
+        <h1 class="mb-4">My Orders for {{ user.username }}</h1>
+        <a href="{% url 'menu' %}" class="btn btn-primary mb-4">Shop More</a>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2>My Orders</h2>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order.id }}</td>
+                        <td>{{ order.productorder.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>{{ order.order.get_status_display }}</td>
+                        <td>Rs. {{ order.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock page %}

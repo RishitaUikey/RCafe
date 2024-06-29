@@ -59,3 +59,4 @@ def upmenu(request,id):
     menu_item= amenu.objects.get(pk=id)
     categories = category.objects.all()
     return render(request,'menu/edit_menu.html',{'menu_item':menu_item, 'categories': categories})
+

@@ -16,7 +16,12 @@ def add_inventory(request):
             quantity and unit and expiry_date and price):
             unit_valid = any(unit_choice[0] == unit for unit_choice in ainventory.UNIT_CHOICES)
             if not unit_valid:
-                return render(request, 'inventory/add_inventory.html', {'error_message': 'Invalid unit selected.'})
+                categories = Icategory.objects.all()
+                return render(request, 'inventory/add_inventory.html', {
+                    'error_message': 'Invalid unit selected.',
+                    'categories': categories,
+                    'unit_choices': ainventory.UNIT_CHOICES
+                })
             
             inventory_category = Icategory.objects.get(id=inventory_category_id)
             ainventory.objects.create(
@@ -33,11 +38,19 @@ def add_inventory(request):
         else:
             inventory_items = ainventory.objects.all()
             categories = Icategory.objects.all()
-            return render(request, 'inventory/add_inventory.html', {'inventory': inventory_items, 'categories': categories})
+            return render(request, 'inventory/add_inventory.html', {
+                'inventory': inventory_items,
+                'categories': categories,
+                'unit_choices': ainventory.UNIT_CHOICES
+            })
 
     inventory_items = ainventory.objects.all()
     categories = Icategory.objects.all()
-    return render(request, 'inventory/add_inventory.html', {'inventory': inventory_items, 'categories': categories})
+    return render(request, 'inventory/add_inventory.html', {
+        'inventory': inventory_items,
+        'categories': categories,
+        'unit_choices': ainventory.UNIT_CHOICES
+    })
 
 def dinventory(request, id):
     inventory_item = ainventory.objects.get(id=id)
@@ -62,7 +75,13 @@ def uinventory(request, id):
             
             unit_valid = any(unit_choice[0] == unit for unit_choice in ainventory.UNIT_CHOICES)
             if not unit_valid:
-                return render(request, 'inventory/edit_inventory.html', {'inventory_item': inventory_item, 'categories': categories, 'error_message': 'Invalid unit selected.'})
+                categories = Icategory.objects.all()
+                return render(request, 'inventory/edit_inventory.html', {
+                    'inventory_item': inventory_item,
+                    'categories': categories,
+                    'unit_choices': ainventory.UNIT_CHOICES,
+                    'error_message': 'Invalid unit selected.'
+                })
             
             inventory_category = Icategory.objects.get(id=inventory_category_id)
             inventory_item.inventory_category = inventory_category
@@ -74,8 +93,12 @@ def uinventory(request, id):
             inventory_item.expiry_date = expiry_date
             inventory_item.price = price
             inventory_item.save()
-            return redirect('inventory/edit_inventory',id=id)
+            return redirect('inventory/edit_inventory', id=id)
         
     inventory_item = ainventory.objects.get(pk=id)
     categories = Icategory.objects.all()
-    return render(request, 'inventory/edit_inventory.html', {'inventory_item': inventory_item, 'categories': categories})
+    return render(request, 'inventory/edit_inventory.html', {
+        'inventory_item': inventory_item,
+        'categories': categories,
+        'unit_choices': ainventory.UNIT_CHOICES
+    })

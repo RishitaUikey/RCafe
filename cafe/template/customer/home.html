@@ -1,14 +1,738 @@
 {% extends "customer/base.html" %}
-{% load static %}
-
 {% block page %}
-<div class="row align-items-center text-center" style="height: 100vh; ">
-    <div class="col">
-      <div style="position: relative;">
-        <img src="{% static 'images/home.jpg' %}" alt="" height="600px" width="1200px" style="display: block;">
-        <h2 style="position: absolute; top: 30%; left: 50%; font-size: 50px; transform: translate(-50%, -50%); color: rgb(255, 255, 255);font-family: 'Times New Roman', Times, serif; font-weight: bold; ">
-            Welcome to my home page</h2>
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café Granate</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap" rel="stylesheet">
+<style>
+/* General styles */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #4c3f3e !important;
+    overflow-x: hidden;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.container {
+    max-width: unset;
+}
+
+/* Animations */
+@keyframes animIntro {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes animLeft {
+    from {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes animRight {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes animDown {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes animUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes imgTransitionNext {
+    0% {
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0vw);
+        opacity: 1;
+    }
+}
+
+@keyframes imgTransitionPrev {
+    0% {
+        transform: translateX(-100vw);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0vw);
+        opacity: 1;
+    }
+}
+
+/* Specific element styles and animations */
+.jamba {
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+}
+
+.color-overlay {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .3);
+    height: 100%;
+    width: 100%;
+}
+
+.change-color {
+    color: #fffcf5;
+    font-size: 4rem;
+    animation: animIntro 2s forwards;
+}
+
+.card-custom {
+    color: #231e1e;
+    background-color: #d2c5bc;
+}
+
+.spacy-boi {
+    background-color: #d2c5bc;
+}
+
+.custom-background {
+    background: #4c3f3e;
+    color: #fffcf5;
+    animation: animLeft 1.75s forwards;
+}
+
+.img-custom {
+    animation: animRight 2s forwards;
+}
+
+.card.animate {
+    animation: animDown 1.5s forwards;
+}
+
+.faizon {
+    background: #4c3f3e;
+    color: #fffcf5;
+    animation: animUp 2s forwards;
+}
+
+.that-all-folks {
+    background-color: #d2c5bc;
+}
+
+.animate-left-right {
+    animation: mymove-left-right 5s forwards;
+}
+
+.animate-bottom-top {
+    animation: mymove-bottom-top 5s forwards;
+}
+
+.animate-top-bottom {
+    animation: mymove-top-bottom 5s forwards;
+}
+
+@keyframes mymove-left-right {
+    from {
+        left: 0px;
+    }
+    to {
+        left: 200px;
+    }
+}
+
+@keyframes mymove-bottom-top {
+    from {
+        bottom: 0px;
+    }
+    to {
+        top: 200px;
+    }
+}
+
+@keyframes mymove-top-bottom {
+    from {
+        top: 0px;
+    }
+    to {
+        bottom: 200px;
+    }
+}
+
+/* Gallery styles and animations */
+.gallery-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 2;
+    position: relative;
+}
+
+.gallery-wrapper img {
+    max-width: 100%;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.gallery-popup.active + .gallery-overlay {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 5;
+    overflow: hidden;
+}
+
+.gallery-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    height: max-content;
+    padding: 0px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    animation: showPopUp 0.45s linear;
+}
+
+.gallery-popup .close,
+.gallery-popup .next,
+.gallery-popup .prev {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 254, 254);
+    font-size: 1.5rem;
+    cursor: pointer;
+    background-color: rgba(76, 72, 72, 0.5);
+    padding: 0.5rem;
+    border: none;
+}
+
+.gallery-popup img {
+    width: auto;
+    max-height: 150vh;
+    object-fit: contain;
+}
+
+.gallery-popup .close {
+    top: 1rem;
+    right: 1rem;
+    width: 30px;
+    height: 30px;
+}
+
+.gallery-popup .next {
+    right: 1rem;
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+.gallery-popup .prev {
+    left: 1rem;
+    top: 100%;
+    transform: translateY(-1000%);
+}
+
+.gallery-wrapper .gallery-inner {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+    z-index: 4;
+}
+
+@media only screen and (max-width: 1280px) {
+    .gallery-wrapper .gallery-inner {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .gallery-wrapper .gallery-inner {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-popup .next {
+        right: 0px;
+    }
+    .gallery-popup .prev {
+        left: 0px;
+    }
+
+    .gallery-popup {
+        top: 60px !important;
+        left: 50% !important;
+        transform: translate(-50%, 0%);
+        height: calc(100vh - 60px);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .gallery-wrapper .gallery-inner {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* Down animation */
+
+  body {
+    background: #fbfbfd;
+    font-family: Arial, sans-serif;
+  }
+
+  .new_footer_area {
+    background: #fbfbfd;
+  }
+
+  .new_footer_top {
+    padding: 120px 0px 270px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .new_footer_area .footer_bottom {
+    padding-top: 5px;
+    padding-bottom: 50px;
+  }
+
+  .footer_bottom {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #7f88a6;
+    padding: 27px 0px;
+  }
+
+  .new_footer_top .company_widget p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #6a7695;
+    margin-bottom: 20px;
+  }
+
+  .new_footer_top .company_widget .f_subscribe_two .btn_get {
+    border-width: 1px;
+    margin-top: 20px;
+  }
+
+  .btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+  }
+
+  .btn_get:hover {
+    color: #fff;
+    background: #6754e2;
+    border-color: #6754e2;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+    text-decoration: none;
+    outline: none;
+  }
+
+  .new_footer_top .f_widget.about-widget .f_list li a:hover {
+    color: #5e2ced;
+  }
+
+  .new_footer_top .f_widget.about-widget .f_list li {
+    margin-bottom: 11px;
+  }
+
+  .f_widget.about-widget .f_list li:last-child {
+    margin-bottom: 0px;
+  }
+
+  .f_widget.about-widget .f_list li {
+    margin-bottom: 15px;
+  }
+
+  .f_widget.about-widget .f_list {
+    margin-bottom: 0px;
+  }
+
+  .new_footer_top .f_social_icon a {
+    width: 44px;
+    height: 44px;
+    line-height: 43px;
+    background: transparent;
+    border: 1px solid #e2e2eb;
+    font-size: 24px;
+    display: inline-block;
+    text-align: center;
+    -webkit-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 45px;
+    color: #858da8;
+    background: #ebeef5;
+  }
+
+  .ti-facebook:before {
+    content: "\e741";
+  }
+
+  .ti-twitter-alt:before {
+    content: "\e74b";
+  }
+
+  .ti-vimeo-alt:before {
+    content: "\e74a";
+  }
+
+  .ti-pinterest:before {
+    content: "\e731";
+  }
+
+  .btn_get_two {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #5e2ced;
+    border-color: #5e2ced;
+    color: #fff;
+  }
+
+  .btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+  }
+
+  .new_footer_top .f_social_icon a:hover {
+    background: #5e2ced;
+    border-color: #5e2ced;
+    color: white;
+  }
+
+  .new_footer_top .f_social_icon a + a {
+    margin-left: 4px;
+  }
+
+  .new_footer_top .f-title {
+    margin-bottom: 30px;
+    color: #263b5e;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .footer_bg {
+    position: absolute;
+    bottom: 0;
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigB8iI5tb8WSVBuVUGc9UjjB8O0708X7Fdic_4O1LT4CmLHoiwhanLXiRhe82yw0R7LgACQ2IhZaTY0hhmGi0gYp_Ynb49CVzfmXtYHUVKgXXpWvJ_oYT8cB4vzsnJLe3iCwuzj-w6PeYq_JaHmy_CoGoa6nw0FBo-2xLdOPvsLTh_fmYH2xhkaZ-OGQ/s16000/footer_bg.png") no-repeat scroll center 0;
+    width: 100%;
+    height: 266px;
+  }
+
+  .new_footer_top .footer_bg .footer_bg_one {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
+    width: 330px;
+    height: 105px;
+    background-size: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    
+    animation: bgOneAnimation 10s linear infinite;
+  }
+
+  .new_footer_top .footer_bg .footer_bg_two {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
+    width: 88px;
+    height: 100px;
+    background-size: 100%;
+    bottom: 0;
+    left: 20%;
+    position: absolute;
+    animation: bgTwoAnimation 8s linear infinite;
+  }
+
+  @keyframes bgOneAnimation {
+    0% {
+      transform: translateX(-25%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes bgTwoAnimation {
+    0% {
+      transform: translateX(-25%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="jamba"
+     style="background-image: url(https://images.pexels.com/photos/2074130/pexels-photo-2074130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);">
+    <div class="color-overlay d-flex justify-content-center align-items-center">
+        <div class="singleCol container text-center align-self-center">
+            <h1 class="change-color animate" data-animate="animIntro 2s">Café Granate</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center ">
+    <div class="row g-3 pt-3 py-3">
+        <div class="col-12 col-md-6 col-lg-4 ">
+            <div class="card animate" data-animate="animDown 1.5s">
+                <img src="https://impos.com.au/wp-content/uploads/2017/12/coffee-mug-and-beans.jpg" alt=""
+                     class="card-img-top animate-left-right">
+                <div class="card-custom card-body">
+                    <h1 class="card-title">Fresh everyday</h1>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card animate" data-animate="animDown 1.5s">
+                <img src="https://images.pexels.com/photos/631160/pexels-photo-631160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                     alt="" class="card-img-top animate-bottom-top">
+                <div class="card-custom card-body">
+                    <h1 class="card-title">Made with Love</h1>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-12 col-lg-4">
+            <div class="card animate" data-animate="animDown 1.5s">
+                <img src="https://perfectdailygrind.com/wp-content/uploads/2019/02/coffee-bar.jpg" alt=""
+                     class="card-img-top animate-top-bottom">
+                <div class="card-custom card-body">
+                    <h1 class="card-title">Expertly crafted</h1>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row g-3 pt-3 py-3 align-items-center">
+        <div class="col-12 col-md-6 col-lg-4 animate" data-animate="animLeft 1.75s">
+            <div class="custom-background">
+                <h1 class="animate" data-animate="animLeft 2s">Heading 4</h1>
+                <p class="animate" data-animate="animLeft 2.25s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                    pariatur.</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 p-0">
+            <div class="img-custom animate" data-animate="animRight 2s">
+                <img src="https://images.pexels.com/photos/6794152/pexels-photo-6794152.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                     alt="" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 p-0">
+            <div class="faizon container text-center animate" data-animate="animUp 2s">
+                <div class="row">
+                    <div class="col-lg-12 p-0">
+                        <img src="https://images.pexels.com/photos/3128506/pexels-photo-3128506.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=200&w=300"
+                             alt="" class="img-fluid animate-bottom-top">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1 style=" color: rgb(255, 255, 255); font-family: 'Times New Roman', Times, serif; font-weight: bold; text-align:center;">
+  OUR GALLERY</h1>
+<div class="gallery-wrapper">
+    <div class="gallery-inner">
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food2.jpg" alt="">
+        </div>
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food3.jpg" alt="">
+        </div>
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food10.jpg" alt="">
+        </div>
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food5.jpg" alt="">
+        </div>
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food6.jpg" alt="">
+        </div>
+        <div class="gallery-img">
+            <img src="https://demo.epic-webdesign.com/tf-fable/cafe/images/food8.jpg" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="gallery-popup">
+    <button class="close">&times;</button>
+    <button class="next">&#187;</button>
+    <button class="prev">&#171;</button>
+    <img src="" alt="">
+</div>
+
+<div class="gallery-overlay"></div>
+
+<script>
+const galleryWrapper = document.querySelector(".gallery-wrapper");
+const galleryPopup = document.querySelector(".gallery-popup");
+const galleryOverlay = document.querySelector(".gallery-overlay");
+const images = [...galleryWrapper.querySelectorAll(".gallery-img img")];
+const closeBtn = galleryPopup.querySelector(".close");
+const nextBtn = galleryPopup.querySelector(".next");
+const prevBtn = galleryPopup.querySelector(".prev");
+const showImg = galleryPopup.querySelector("img");
+
+let selectedImg = null;
+let startCount = 0;
+let endCount = images.length - 1;
+
+// Event listeners
+closeBtn.addEventListener("click", () => {
+    galleryPopup.style.display = "none";
+    galleryPopup.classList.remove("active");
+    selectedImg = null;
+    startCount = 0;
+    endCount = images.length - 1;
+    document.body.style.overflow = "auto";
+});
+
+nextBtn.addEventListener("click", () => {
+    if (selectedImg === null) return;
+    selectedImg = (selectedImg === endCount) ? startCount : selectedImg + 1;
+    showImg.src = images[selectedImg].src;
+    addRemoveAnimation("next");
+});
+
+prevBtn.addEventListener("click", () => {
+    if (selectedImg === null) return;
+    selectedImg = (selectedImg === startCount) ? endCount : selectedImg - 1;
+    showImg.src = images[selectedImg].src;
+    addRemoveAnimation("prev");
+});
+
+images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+        galleryPopup.style.display = "flex";
+        galleryPopup.classList.add("active");
+        showImg.src = img.src;
+        selectedImg = index;
+        document.body.style.overflow = "hidden";
+    });
+});
+
+// Function to add and remove animation classes
+function addRemoveAnimation(direction) {
+    const animationName = (direction === "next") ? "imgTransitionNext" : "imgTransitionPrev";
+    showImg.style.animation = animationName + " 0.45s linear";
+    setTimeout(() => {
+        showImg.style.animation = "";
+    }, 450);
+}
+</script>
+
+
+<!-- car annimation  -->
+<footer class="new_footer_area bg_color">
+  <div class="new_footer_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s">
+            <h3 class="f-title f_600 t_color f_size_18">Visit Our Cafe </h3>
+            <div class="f_social_icon">
+              <a href="#" class="fab fa-facebook"></a>
+              <a href="#" class="fab fa-twitter"></a>
+              <a href="#" class="fab fa-linkedin"></a>
+              <a href="#" class="fab fa-pinterest"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer_bg">
+      <div class="footer_bg_one"></div>
+      <div class="footer_bg_two"></div>
+    </div>
+  </div>
+   
       </div>
     </div>
   </div>
+</footer>
+
+</body>
+</html>
+
 {% endblock page %}

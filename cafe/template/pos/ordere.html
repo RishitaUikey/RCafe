@@ -1,0 +1,72 @@
+{% extends "sadmin/base.html" %}
+
+{% block page %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-container {
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+        .product-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .product-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center mb-4">All Orders</h1>
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Products</th>
+                    <th scope="col">Total Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in item %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.created_at|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <ul class="product-list">
+                        {% for item in order.orderitem_set.all %}
+                            <li>{{ item.productorder.name }} (x{{ item.quantity }}) - RS. {{ item.total }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                    <td>RS. {{ order.total_amount }}</td>
+                    <td>{{ order.get_status_display}}</td>
+                    <td>
+                        <a href="{% url 'update_order_status' order.id %}" class="btn btn-primary">Update Status</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock page %}

@@ -12,4 +12,3 @@ class amenu(models.Model):
     picture= models.FileField(upload_to='product/',null=True ,blank=True)
     quantity = models.IntegerField()
     
- 
