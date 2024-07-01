@@ -4,68 +4,69 @@ from menu.models import amenu,category
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from cust.models import customer
-# @login_required
-# def add_cust(request):
-#         if request.method == 'POST':
-#             customer_name = request.POST.get('customer_name')
-#             email = request.POST.get('email')
-#             phone = request.POST.get('phone')
-#             address = request.POST.get('address')
-#             option_to_eat = request.POST.get('option_to_eat')
 
-#             if customer_name and email and phone and address and option_to_eat:
-#                 option_to_eat_valid = any(choice[0] == option_to_eat for choice in POS.OPTION_TO_EAT_CHOICES)
-#                 if not option_to_eat_valid:
-#                     return render(request, 'pos/add_cust.html', {
-#                         'error_message': 'Invalid option to eat selected.',
-#                         'option_to_eat_choices': POS.OPTION_TO_EAT_CHOICES 
-#                     })
+@login_required
+def add_cust(request):
+        if request.method == 'POST':
+            customer_name = request.POST.get('customer_name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            address = request.POST.get('address')
+            option_to_eat = request.POST.get('option_to_eat')
+
+            if customer_name and email and phone and address and option_to_eat:
+                option_to_eat_valid = any(choice[0] == option_to_eat for choice in POS.OPTION_TO_EAT_CHOICES)
+                if not option_to_eat_valid:
+                    return render(request, 'pos/add_cust.html', {
+                        'error_message': 'Invalid option to eat selected.',
+                        'option_to_eat_choices': POS.OPTION_TO_EAT_CHOICES 
+                    })
                         
-#                 POS.objects.create(
-#                     Customer_name=customer_name,
-#                     Email=email,
-#                     Phone=phone,
-#                     Address=address,
-#                     option_to_eat=option_to_eat,
-#                     order_date=timezone.now()
-#                 )
-#                 return redirect('pos/add_cust')
+                POS.objects.create(
+                    Customer_name=customer_name,
+                    Email=email,
+                    Phone=phone,
+                    Address=address,
+                    option_to_eat=option_to_eat,
+                    order_date=timezone.now()
+                )
+                return redirect('pos/add_cust')
             
-#         add_customer = POS.objects.all()
-#         return render(request, 'pos/add_cust.html', {
-#             'add_cust': add_customer,
-#             'option_to_eat_choices': POS.OPTION_TO_EAT_CHOICES 
-#             })
+        add_customer = POS.objects.all()
+        return render(request, 'pos/add_cust.html', {
+            'add_cust': add_customer,
+            'option_to_eat_choices': POS.OPTION_TO_EAT_CHOICES 
+            })
 
-# def del_cust(request, id):
-#     add_customer = get_object_or_404(POS, id=id)
-#     add_customer.delete()
-#     return redirect('pos/add_cust')
+def del_cust(request, id):
+    add_customer = get_object_or_404(POS, id=id)
+    add_customer.delete()
+    return redirect('pos/add_cust')
 
-# def up_cust(request, id):
-#     add_customer = get_object_or_404(POS, id=id)
+def up_cust(request, id):
+    add_customer = get_object_or_404(POS, id=id)
     
-#     if request.method == 'POST':
-#         customer_name = request.POST.get('customer_name')
-#         email = request.POST.get('Email')
-#         phone = request.POST.get('Phone')
-#         address = request.POST.get('Address')
-#         option_to_eat = request.POST.get('option_to_eat')
+    if request.method == 'POST':
+        customer_name = request.POST.get('customer_name')
+        email = request.POST.get('Email')
+        phone = request.POST.get('Phone')
+        address = request.POST.get('Address')
+        option_to_eat = request.POST.get('option_to_eat')
         
-#         if customer_name and email and phone and address and option_to_eat:
-#             option_to_eat_valid = any(choice[0] == option_to_eat for choice in POS.OPTION_TO_EAT_CHOICES)
-#             if not option_to_eat_valid:
-#                 return render(request, 'pos/edit_cust.html', {'error_message': 'Invalid option to eat selected.'})
+        if customer_name and email and phone and address and option_to_eat:
+            option_to_eat_valid = any(choice[0] == option_to_eat for choice in POS.OPTION_TO_EAT_CHOICES)
+            if not option_to_eat_valid:
+                return render(request, 'pos/edit_cust.html', {'error_message': 'Invalid option to eat selected.'})
                 
-#             add_customer.customer_name = customer_name
-#             add_customer.email = email
-#             add_customer.phone = phone
-#             add_customer.address = address
-#             add_customer.option_to_eat = option_to_eat
-#             add_customer.save()
-#             return redirect('up_cust', id=id)
+            add_customer.customer_name = customer_name
+            add_customer.email = email
+            add_customer.phone = phone
+            add_customer.address = address
+            add_customer.option_to_eat = option_to_eat
+            add_customer.save()
+            return redirect('up_cust', id=id)
     
-#     return render(request, 'pos/edit_cust.html', {'add_customer': add_customer})
+    return render(request, 'pos/edit_cust.html', {'add_customer': add_customer})
 
 
 @login_required
@@ -76,7 +77,7 @@ def add_item_to_cart(request,p_id):
     if not created:
         cart_item.quantity += 1
         cart_item.save()
-    return redirect('menu')
+    return redirect('cart')
 
 @login_required
 def buy_now(request, p_id):

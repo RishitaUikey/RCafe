@@ -31,7 +31,8 @@
                             <tr>
                                 <td>
                                     <div class="product-img">
-                                        <div class="img-prdct"><img src="{{ cart_item.productorder.image.url }}" alt="{{ cart_item.productorder.name }}"></div>
+
+                                        <div class="img-prdct"><img src="/up_media/product/{{i.picture}}" alt="Product Image"   height="60" width="60"></div>
                                     </div>
                                 </td>
                                 <td>
@@ -65,7 +66,7 @@
             <div class="col-md-8">
                 <div class="cart-summary">
                     <h4>Order Summary</h4>
-                    <p class="total-price">Total Amount: Rs. {{ total_price|floatformat:2 }}</p>
+                    <p align="left">TOTAL = <span id="total" class="total">{{ total_price }}</p>
                     <form action="" method="post">
                         {% csrf_token %}
                         <div class="cart-buttons">

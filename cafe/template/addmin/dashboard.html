@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0; /* Remove default margin */
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .navbar-fixed-top {
+            background: #2f4050;
+            border-color: #2f4050;
+            margin-bottom: 0;
+        }
+
+        .navbar-fixed-top .navbar-brand,
+        .navbar-fixed-top .navbar-nav > li > a {
+            color: #fff;
+        }
+
+        .logo span {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        .btn-primary.menu {
+            background-color: #1ab394;
+            border-color: #1ab394;
+        }
+
+        .navbar-top-links {
+            margin-right: 0;
+        }
+
+        .navbar-top-links .dropdown-menu {
+            background-color: #2f4050;
+        }
+
+        .navbar-top-links .dropdown-menu a {
+            color: #fff;
+        }
+
+        .side-menu {
+            width: 250px;
+            position: fixed;
+            height: 100%;
+            background-color: #2f4050;
+            padding-top: 50px;
+        }
+
+        .side-menu-container {
+            padding-right: 0;
+            padding-left: 0;
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .navbar-side-menu .navbar-header {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .brand-wrapper {
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .side-menu .navbar-header .navbar-toggle {
+            margin-right: 0;
+        }
+
+        .side-menu .nav > li > a {
+            color: #a7b1c2;
+        }
+
+        .side-menu .nav > li > a:hover,
+        .side-menu .nav > li.active > a {
+            background-color: #293846;
+            color: #fff;
+        }
+
+        .side-menu .nav > li {
+            display: block;
+            width: 100%;
+        }
+
+        .side-menu .nav > li > .dropdown-menu {
+            background-color: #2f4050;
+            width: 100%;
+        }
+
+        .page-title-box {
+            padding: 20px;
+            margin-bottom: 10px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #e7eaec;
+        }
+
+        .page-title-box h3.page-title {
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+        }
+
+        .breadcrumb {
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .panel {
+            border-radius: 0;
+        }
+
+        .panel .panel-heading {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .panel-footer {
+            background-color: #fff;
+        }
+
+        .panel-primary .panel-heading {
+            background-color: #1ab394;
+            border-color: #1ab394;
+        }
+
+        .huge {
+            font-size: 40px;
+        }
+
+        .footer {
+            background-color: transparent; /* Remove background color */
+            color: #a7b1c2;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-title-box">
+        <h3 class="page-title">Dashboard</h3>
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li class="active">Current Page</li>
+        </ol>
+    </div>
+
+    <div class="side-menu">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <div class="brand-wrapper">
+                    <div class="brand-name-wrapper">
+                        <a class="navbar-brand" href="#">Navigation Menu</a>
+                    </div>
+                    <a class="btn btn-default" data-toggle="collapse" href="#search" id="search-trigger">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                    <div class="panel-collapse collapse" id="search">
+                        <div class="panel-body">
+                            <form class="navbar-form" role="search">
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Search" type="text">
+                                </div>
+                                <button class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-menu-container">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-cutlery"></span> Menu <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/menu/addmenu">Add Menu Item</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-th-list"></span> Inventory <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/inventory/add">Add Inventory</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Purchase <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/purchase/add_purchase">Add Purchase</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container-fluid">
+        <div class="side-body">
+            <!-- Add your dashboard content here -->
+        </div>
+    </div>
+
+    <footer class="footer">
+        <!-- <a href="http://test.com/" target="_blank">Dev</a> -->
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

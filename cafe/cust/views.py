@@ -41,7 +41,7 @@ def register_user(request):
             user=authenticate(username=username,password=password)
             login(request,user)
             messages.success(request,('Registration Successful, and Logined in..'))
-            return redirect('cust_home')
+            return redirect('home')
         else:
             messages.success(request,('Registration Un-Successful, try again..'))
             return redirect('register')

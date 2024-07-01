@@ -14,16 +14,14 @@ def add_purchase(request):
             store = Purchase.objects.create(category=category,item=item,unit=unit,quantity=quantity,expiry_date=expiry_date,price=price,
                 total=float(quantity) * float(price)
             )
-        else:
-            purchase_item = Purchase.objects.all()
-            return render(request, 'purchase/add_purchase.html', {'purchase':purchase_item})
+            
     purchase_item = Purchase.objects.all()
-    return render(request, 'purchase/add_purchase.html', {'purchase':purchase_item})
+    return render(request, 'purchase/addp.html', {'purchase':purchase_item})
 
 def dpurchase(request, id):
     store = Purchase.objects.get(id=id)
     store.delete()
-    return redirect('purchase/add_purchase')
+    return redirect('purchase/addp')
 
 def upurchase(request, id):
     if request.method == 'POST':

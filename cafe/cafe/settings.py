@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'pos',
     'inventory',
     'purchase',
+    'addmin',
     
 ]
 

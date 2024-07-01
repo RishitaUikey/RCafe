@@ -26,5 +26,6 @@ urlpatterns = [
     path('pos/',include('pos.urls')),
     path('inventory/',include('inventory.urls')),
     path('purchase/',include('purchase.urls')),
+    path('addmin/',include('addmin.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
