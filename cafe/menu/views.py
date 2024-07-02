@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from menu.models import amenu,category
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def menuu(request):
     items = amenu.objects.all()
     print(items)

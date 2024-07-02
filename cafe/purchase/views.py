@@ -21,7 +21,7 @@ def add_purchase(request):
 def dpurchase(request, id):
     store = Purchase.objects.get(id=id)
     store.delete()
-    return redirect('purchase/addp')
+    return redirect('purchase:addp')
 
 def upurchase(request, id):
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def upurchase(request, id):
             store.price = price
             store.total = float(quantity) * float(price)
             store.save()
-            return redirect('purchase/edit_purchase')
+            return redirect('purchase:edit_purchase')
         else:
             pass
     p = Purchase.objects.get(id=id)

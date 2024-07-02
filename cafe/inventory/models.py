@@ -24,6 +24,6 @@ class ainventory(models.Model):
     item = models.CharField(max_length=50)
     quantity = models.IntegerField()
     unit = models.CharField(max_length=20, choices=UNIT_CHOICES)
-    expiry_date = models.DateTimeField(null=True)
+    expiry_date = models.DateField(null=True)
     entry_date = models.DateField(auto_now_add=True,null=True)
     price = models.IntegerField()

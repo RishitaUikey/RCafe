@@ -2,30 +2,30 @@ from django.db import models
 from menu.models import amenu
 from django.contrib.auth.models import User
 
-# class POS(models.Model):
-#     DINE_IN = 'dine_in'
-#     TAKE_OUT = 'take_out'
-#     DELIVERY = 'delivery'
+class POS(models.Model):
+    DINE_IN = 'dine_in'
+    TAKE_OUT = 'take_out'
+    DELIVERY = 'delivery'
     
-#     OPTION_TO_EAT_CHOICES = [
-#         (DINE_IN, 'Dine In'),
-#         (TAKE_OUT, 'Take Out'),
-#         (DELIVERY, 'Delivery'),
-#     ]
+    OPTION_TO_EAT_CHOICES = [
+        (DINE_IN, 'Dine In'),
+        (TAKE_OUT, 'Take Out'),
+        (DELIVERY, 'Delivery'),
+    ]
     
-#     order_date = models.DateField()
-#     customer_name = models.CharField(max_length=50)
-#     email = models.EmailField(max_length=50, blank=True, null=True)
-#     phone = models.CharField(max_length=15, blank=True, null=True)
-#     address = models.CharField(max_length=255, blank=True, null=True)
-#     option_to_eat = models.CharField(
-#         max_length=10,
-#         choices=OPTION_TO_EAT_CHOICES,
-#         default=DINE_IN,
-#     )
+    order_date = models.DateField()
+    customer_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50, blank=True, null=True)
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    option_to_eat = models.CharField(
+        max_length=10,
+        choices=OPTION_TO_EAT_CHOICES,
+        default=DINE_IN,
+    )
     
-#     def __str__(self):
-#         return self.customer_name 
+    def __str__(self):
+        return self.customer_name 
 
 class Order(models.Model):
     STATUS_CHOICES = (

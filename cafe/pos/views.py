@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from pos.models import Order,OrderItem,Cart
+from pos.models import POS, Order,OrderItem,Cart
 from menu.models import amenu,category
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -165,6 +165,7 @@ def delete_cart_item(request, cart_id):
 #     }
 #     return render(request, 'customer/myorder.html',context)
 
+@login_required
 def myorders(request):
     user = request.user
     user_orders = Order.objects.filter(user=user)  # Use a different variable name to avoid conflict
@@ -207,6 +208,7 @@ def profile(request):
 
 #     return render(request, 'customer/custform.html', context)
 
+@login_required
 def up_order_status(request, id):
     if request.method == 'POST':
         sstatus = request.POST.get('status')

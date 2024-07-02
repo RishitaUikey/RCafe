@@ -41,7 +41,7 @@ def add_inventory(request):
                 price=price
             )
             # Redirect to the add_inventory page upon successful creation
-            return redirect('inventory/add_inventory.html')
+            return redirect('inventory:add_inventory')
         else:
 
             inventory_items = ainventory.objects.all()
@@ -64,7 +64,7 @@ def add_inventory(request):
 def dinventory(request, id):
     inventory_item = ainventory.objects.get(id=id)
     inventory_item.delete()
-    return redirect('inventory/add_inventory')
+    return redirect('inventory:add_inventory')
 
 def uinventory(request, id):
     if request.method == 'POST':
@@ -104,7 +104,7 @@ def uinventory(request, id):
             inventory_item.save()
             
             
-            return redirect('inventory/add')
+            return redirect('inventory:add_inventory')
         else :
             pass
         
